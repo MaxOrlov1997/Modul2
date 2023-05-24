@@ -1,0 +1,11 @@
+#
+*.idea
+HW1/
+
+
+.project
+.settings
+*.iml
+*.iws
+log/
+target/
