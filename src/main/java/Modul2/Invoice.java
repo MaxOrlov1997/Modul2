@@ -59,9 +59,12 @@ public class Invoice {
         List<String> onlyOneTypeProduct = new ArrayList<>();
         while (scanner.hasNextLine()) {
             String stringOnFile = scanner.nextLine();
-            int numSoldTelevision = (int) Arrays.stream(stringOnFile.split(",")).filter(x -> x.contains("Telephone")).count();
-            int numSoldTelephone = (int) Arrays.stream(stringOnFile.split(",")).filter(x -> x.contains("Television")).count();
-            if (numSoldTelephone == 0 && numSoldTelevision != 0 || numSoldTelevision == 0 && numSoldTelephone != 0) {
+            int numSoldTelevision = (int) Arrays.stream(stringOnFile.split(",")).
+                    filter(x -> x.contains("Telephone")).count();
+            int numSoldTelephone = (int) Arrays.stream(stringOnFile.split(",")).
+                    filter(x -> x.contains("Television")).count();
+            if (numSoldTelephone == 0 && numSoldTelevision != 0 ||
+                    numSoldTelevision == 0 && numSoldTelephone != 0) {
                 onlyOneTypeProduct.add(stringOnFile);
             }
         }
@@ -81,13 +84,15 @@ public class Invoice {
             String[] arrayInformationBuyer = informationBuyer.split(" ");
             double mas8 = Double.parseDouble(arrayInformationFile[8]);
             double mas15 = Double.parseDouble(StringUtils.removeEnd(arrayInformationFile[15], "]"));
-            ollInformationBuyerAndCheck.put(mas15 + mas8, arrayInformationBuyer[1] + " " + arrayInformationBuyer[2] + " " + arrayInformationBuyer[3]);
+            ollInformationBuyerAndCheck.put(mas15 + mas8, arrayInformationBuyer[1] + " "
+                    + arrayInformationBuyer[2] + " " + arrayInformationBuyer[3]);
             type = (mas8 + mas15 > limitPrice) ? "wholesale" : "retail";
             if (type.equals("retail")) {
                 ++checkCounterRetail;
             }
         }
-        System.out.println("Наименшая сумма чека и информация о покупателе " + ollInformationBuyerAndCheck.firstEntry());
+        System.out.println("Наименшая сумма чека и информация о покупателе "
+                + ollInformationBuyerAndCheck.firstEntry());
         System.out.println("Количество чеков retail " + checkCounterRetail);
         scanner.close();
     }
@@ -97,8 +102,10 @@ public class Invoice {
         int numSold = 0;
         while (scanner.hasNextLine()) {
             String stringOnFile = scanner.nextLine();
-            int numSoldTelevision = (int) Arrays.stream(stringOnFile.split(",")).filter(x -> x.contains("Telephone")).count();
-            int numSoldTelephone = (int) Arrays.stream(stringOnFile.split(",")).filter(x -> x.contains("Television")).count();
+            int numSoldTelevision = (int) Arrays.stream(stringOnFile.split(",")).
+                    filter(x -> x.contains("Telephone")).count();
+            int numSoldTelephone = (int) Arrays.stream(stringOnFile.split(",")).
+                    filter(x -> x.contains("Television")).count();
             numSold += numSoldTelephone + numSoldTelevision;
         }
         scanner.close();
