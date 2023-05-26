@@ -32,7 +32,7 @@ public class Invoice {
 
     public static void main(String[] args) throws IOException {
         ShopService shopService = new ShopService();
-        for (int i = 0; i < 15; i++) {
+        for (int i = 0; i < 2; i++) {
             shopService.writeListProduct();
         }
         File file = new File("OrderFile.csv");

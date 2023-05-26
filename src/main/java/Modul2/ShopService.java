@@ -9,31 +9,29 @@ public class ShopService {
    static List<String> historyOrder = new ArrayList<>();
    static File file = new File("OrderFile.csv");
     public void writeListProduct() throws IOException {
-        List <String> list= new ArrayList<>();
+        List <String> checkList = new ArrayList<>();
         File file = new File("ListProduct");
         Scanner scanner = new Scanner(file);
         int numPositionOrder =2; //ThreadLocalRandom.current().nextInt(1,6);
+        List<String> randomlist = new ArrayList<>();
         for (int i = 0; i < numPositionOrder; i++) {
         while (scanner.hasNextLine()){
-        int numStringONFile=1;
+            randomlist.add(scanner.nextLine());}
         int randomStringFile = ThreadLocalRandom.current().nextInt(1, 11);
-        if(numStringONFile==randomStringFile){
-            list.add(scanner.nextLine());
-            break;
-        }
-            numStringONFile++;}}
+            checkList.add(randomlist.get(randomStringFile));}
         scanner.close();
-        historyOrder.add(list.toString());
-        writeOrderFile(list);
+        historyOrder.add(checkList.toString());
+        writeOrderFile(checkList);
+        System.out.println(historyOrder);
     }
     public static void writeOrderFile(List list) throws IOException {
         PersonService personService = new PersonService();
-        String[] informationOfCheck = new String[3];
-        informationOfCheck[0]= String.valueOf(LocalDateTime.now());
-        informationOfCheck[1]=personService.generateNewCustomer().toString();
-        informationOfCheck[2] = list.toString();
-        FileWriter fileWriter = new FileWriter(file, true);;
-        fileWriter.append(Arrays.toString(informationOfCheck));
+        Map<Integer, String> informationOfCheck = new HashMap<>();
+        informationOfCheck.put(1, String.valueOf(LocalDateTime.now()));
+        informationOfCheck.put(2, personService.generateNewCustomer().toString());
+        informationOfCheck.put(3, list.toString());
+        FileWriter fileWriter = new FileWriter(file, true);
+        fileWriter.append(informationOfCheck.toString());
             }
         }
 
