@@ -4,31 +4,57 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
 
 import org.apache.commons.lang3.StringUtils;
 
 public class Invoice {
     static double limitPrice = 1000;
     static String type;
+   static int agePerson;
+   static String stringOnFile;
+  static List<Object> in = new ArrayList<>();
+
+    public Invoice(Object stringOnFile) {
+
+    }
+
+    public static int getAgePerson() {
+        return agePerson;
+    }
 
     public static void main(String[] args) throws IOException {
         ShopService shopService = new ShopService();
         File file = new File("OrderFile.csv");
         shopService.writeSaleInformation(file);
-        countSaleProduct(file);
-        amountSmallCheckBuyer(file);
-        oneTypeProduct(file);
-        firstThreeCheck(file);
-        ageNoEighteenEars(file);
+        // countSaleProduct(file);
+        // amountSmallCheckBuyer(file);
+        // oneTypeProduct(file);
+        // firstThreeCheck(file);
+        //  ageNoEighteenEars(file);
         sortAllCheck(file);
     }
 
     public static void sortAllCheck(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
+        Comparator <Invoice> comparator = new InvoiceComparator();
+        TreeSet <Invoice> list = new TreeSet<>(comparator);
         while (scanner.hasNextLine()) {
-
+             stringOnFile = scanner.nextLine();
+//            int numSoldTelevision = (int) Arrays.stream(stringOnFile.split(",")).
+//                    filter(x -> x.contains("Telephone")).count();
+//            int numSoldTelephone = (int) Arrays.stream(stringOnFile.split(",")).
+//                    filter(x -> x.contains("Television")).count();
+//           double numSoldProduct = numSoldTelephone + numSoldTelevision;
+//            double mas8 = Double.parseDouble(arrayInformationFile[8]);
+//            double mas15 = Double.parseDouble(StringUtils.removeEnd(arrayInformationFile[15], "]"));
+//            double sumToCheck = mas8 + mas15;
+            in.add(new Invoice(stringOnFile));}
+        Object[] arrayInformationFile = stringOnFile.split(",");
+        agePerson = Integer.parseInt(arrayInformationFile[1].toString().replaceAll("\\s", ""));
+            System.out.println(in);
         }
-    }
+
 
     public static void ageNoEighteenEars(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
@@ -110,6 +136,11 @@ public class Invoice {
         }
         scanner.close();
         System.out.println("Количество проданных товаров " + numSold);
+    }
+}
+class InvoiceComparator implements Comparator<Invoice>{
+    public int compare(Invoice a, Invoice b){
+        return Integer.compare(Invoice.getAgePerson(), Invoice.getAgePerson());
     }
 }
 
