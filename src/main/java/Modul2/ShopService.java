@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 import java.util.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class ShopService {
+public class ShopService extends Throwable {
     static List<String> historyOrder = new ArrayList<>();
 
     public static void readListProduct(List<String> listInformationSale) throws IOException {
@@ -43,19 +43,19 @@ public class ShopService {
             }
         }
     }
-public static String[] notCorrectString(String[] exception){
+public static void notCorrectString(String[] exception){
         try {
             for (String s : exception) {
-                if (s.isEmpty()) {
-                    System.out.println("Некоректная строка");
-                    throw new RuntimeException();
+                if (s.equals(" ")) {
+                    throw new Exception();
                 }}
-            return exception;}
-        finally {
-               return exception;
-                }
             }
+        catch (Exception e) {
+            System.out.println("Некоректная строка");
         }
+}
+            }
+
 
 
 
