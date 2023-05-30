@@ -13,7 +13,7 @@ public class ShopService extends Throwable {
         File file = new File("D:\\Modul2\\src\\main\\resources\\ListProduct");
         Scanner scanner = new Scanner(file);
         List<String> randomlist = new ArrayList<>();
-        int numPositionOrder = 2; //ThreadLocalRandom.current().nextInt(1,6);
+        int numPositionOrder = ThreadLocalRandom.current().nextInt(1,5);
         for (int i = 0; i < numPositionOrder; i++) {
             while (scanner.hasNextLine()) {
                 String stringONFile = scanner.nextLine();
