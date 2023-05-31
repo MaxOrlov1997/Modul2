@@ -12,14 +12,19 @@ public class Invoice {
     static String type;
     static int agePerson;
     static String stringOnFile;
-    static List<Object> in = new ArrayList<>();
+    List<String> list;
 
-    public Invoice(Object stringOnFile) {
+    public Invoice(List<String> list) {
+        this.list = list;
+    }
+
+    public Invoice(String stringOnFile) {
 
     }
 
     public static int getAgePerson() {
-        return agePerson;
+        Object[] arrayInformationFile = stringOnFile.split(",");
+        return agePerson = Integer.parseInt(arrayInformationFile[1].toString().replaceAll("\\s", ""));
     }
 
     public static void main(String[] args) throws IOException {
@@ -35,26 +40,16 @@ public class Invoice {
     }
 
     public static void sortAllCheck(File file) throws FileNotFoundException {
+        Invoice invoice = new Invoice(stringOnFile);
         Scanner scanner = new Scanner(file);
         Comparator<Invoice> comparator = new InvoiceComparator();
         TreeSet<Invoice> list = new TreeSet<>(comparator);
         while (scanner.hasNextLine()) {
             stringOnFile = scanner.nextLine();
-//            int numSoldTelevision = (int) Arrays.stream(stringOnFile.split(",")).
-//                    filter(x -> x.contains("Telephone")).count();
-//            int numSoldTelephone = (int) Arrays.stream(stringOnFile.split(",")).
-//                    filter(x -> x.contains("Television")).count();
-//           double numSoldProduct = numSoldTelephone + numSoldTelevision;
-//            double mas8 = Double.parseDouble(arrayInformationFile[8]);
-//            double mas15 = Double.parseDouble(StringUtils.removeEnd(arrayInformationFile[15], "]"));
-//            double sumToCheck = mas8 + mas15;
-            in.add(new Invoice(stringOnFile));
+            invoice.list.add(stringOnFile);
         }
-        Object[] arrayInformationFile = stringOnFile.split(",");
-        agePerson = Integer.parseInt(arrayInformationFile[1].toString().replaceAll("\\s", ""));
-        System.out.println(in);
+        System.out.println(list);
     }
-
 
     public static void ageNoEighteenEars(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
@@ -125,7 +120,6 @@ public class Invoice {
         scanner.close();
     }
 
-
     public static void countSaleProduct(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         int numSold = 0;
@@ -140,12 +134,12 @@ public class Invoice {
         scanner.close();
         System.out.println("Количество проданных товаров " + numSold);
     }
+}
 
-
-    static class InvoiceComparator implements Comparator<Invoice> {
-        public int compare(Invoice a, Invoice b) {
-            return Integer.compare(Invoice.getAgePerson(), Invoice.getAgePerson());
-        }
+class InvoiceComparator implements Comparator<Invoice> {
+    public int compare(Invoice a, Invoice b) {
+        return Integer.compare(Invoice.getAgePerson(), Invoice.getAgePerson());
     }
 }
+
 

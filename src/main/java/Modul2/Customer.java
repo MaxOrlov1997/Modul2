@@ -4,5 +4,4 @@ public class Customer {
     int id;
     String email;
     int age;
-
 }

@@ -13,7 +13,7 @@ public class ShopService extends Throwable {
         File file = new File("D:\\Modul2\\src\\main\\resources\\ListProduct");
         Scanner scanner = new Scanner(file);
         List<String> randomlist = new ArrayList<>();
-        int numPositionOrder = ThreadLocalRandom.current().nextInt(1,5);
+        int numPositionOrder = ThreadLocalRandom.current().nextInt(1, 5);
         for (int i = 0; i < numPositionOrder; i++) {
             while (scanner.hasNextLine()) {
                 String stringONFile = scanner.nextLine();
@@ -21,7 +21,7 @@ public class ShopService extends Throwable {
                 notCorrectString(exception);
                 randomlist.add(stringONFile);
             }
-            int randomStringFile =ThreadLocalRandom.current().nextInt(1, 11);
+            int randomStringFile = ThreadLocalRandom.current().nextInt(1, 11);
             checkList.add(randomlist.get(randomStringFile));
         }
         historyOrder.add(checkList.toString());
@@ -43,18 +43,19 @@ public class ShopService extends Throwable {
             }
         }
     }
-public static void notCorrectString(String[] exception){
+
+    public static void notCorrectString(String[] exception) {
         try {
             for (String s : exception) {
                 if (s.equals(" ")) {
                     throw new Exception();
-                }}
+                }
             }
-        catch (Exception e) {
+        } catch (Exception e) {
             System.out.println("Некоректная строка");
         }
+    }
 }
-            }
 
 
 
