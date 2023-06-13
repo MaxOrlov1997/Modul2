@@ -1,4 +1,4 @@
-package Modul2;
+package Modul2.Information;
 
 public class Telephone {
     String series;

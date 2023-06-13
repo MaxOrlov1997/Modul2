@@ -1,28 +1,17 @@
-package Modul2;
+package Modul2.AllTask;
+
+import Modul2.FillFile.ShopService;
+import org.apache.commons.lang3.StringUtils;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
-
-import org.apache.commons.lang3.StringUtils;
 
 public class Invoice {
     static double limitPrice = 1000;
     static String type;
-    static int agePerson;
     static String stringOnFile;
-
-    public Invoice(String nextLine) {
-    }
-
-    public  int getAgePerson() {
-        Object[] arrayInformationFile = stringOnFile.split(",");
-        return agePerson = Integer.parseInt(arrayInformationFile[1].toString().replaceAll("\\s", ""));
-    }
-
 
     public static void main(String[] args) throws IOException {
         ShopService shopService = new ShopService();
@@ -120,37 +109,3 @@ public class Invoice {
         System.out.println("Количество проданных товаров " + numSold);
     }
 }
-
-class InvoiceComparator{
-
-    public static void main(String[] args) throws FileNotFoundException {
-        File file = new File("OrderFile.csv");
-        List<SomeToAgeSort> sortAge = new ArrayList<>();
-        Scanner scanner = new Scanner(file);
-        while (scanner.hasNextLine()) {
-            String stringOnFile = scanner.nextLine();
-            Object[] arrayInformationFile = stringOnFile.split(",");
-            int agePerson = Integer.parseInt(arrayInformationFile[1].toString().replaceAll("\\s", ""));
-        sortAge.add(new SomeToAgeSort(agePerson,stringOnFile));
-        }
-       sortAge.sort(Comparator.comparing(SomeToAgeSort::getAgePerson));
-
-    }
-}
-class SomeToAgeSort{
-   private String stringOnFile;
-   private int agePerson;
-
-    public SomeToAgeSort(int agePerson, String stringOnFile) {
-    }
-
-    public int getAgePerson() {
-        return agePerson;
-    }
-
-    public String getStringOnFile() {
-        return stringOnFile;
-    }
-}
-
-

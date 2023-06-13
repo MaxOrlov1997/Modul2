@@ -1,4 +1,4 @@
-package Modul2;
+package Modul2.Information;
 
 public class Television {
     String series;
