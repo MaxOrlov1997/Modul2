@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.apache.commons.lang3.StringUtils;
 
@@ -12,20 +14,15 @@ public class Invoice {
     static String type;
     static int agePerson;
     static String stringOnFile;
-    List<String> list;
 
-    public Invoice(List<String> list) {
-        this.list = list;
+    public Invoice(String nextLine) {
     }
 
-    public Invoice(String stringOnFile) {
-
-    }
-
-    public static int getAgePerson() {
+    public  int getAgePerson() {
         Object[] arrayInformationFile = stringOnFile.split(",");
         return agePerson = Integer.parseInt(arrayInformationFile[1].toString().replaceAll("\\s", ""));
     }
+
 
     public static void main(String[] args) throws IOException {
         ShopService shopService = new ShopService();
@@ -36,26 +33,14 @@ public class Invoice {
         oneTypeProduct(file);
         firstThreeCheck(file);
         ageNoEighteenEars(file);
-        sortAllCheck(file);
     }
 
-    public static void sortAllCheck(File file) throws FileNotFoundException {
-        Invoice invoice = new Invoice(stringOnFile);
-        Scanner scanner = new Scanner(file);
-        Comparator<Invoice> comparator = new InvoiceComparator();
-        TreeSet<Invoice> list = new TreeSet<>(comparator);
-        while (scanner.hasNextLine()) {
-            stringOnFile = scanner.nextLine();
-            invoice.list.add(stringOnFile);
-        }
-        System.out.println(list);
-    }
 
     public static void ageNoEighteenEars(File file) throws FileNotFoundException {
         Scanner scanner = new Scanner(file);
         List<String> noEighteenEars = new ArrayList<>();
         while (scanner.hasNextLine()) {
-            String stringOnFile = scanner.nextLine();
+            stringOnFile = scanner.nextLine();
             String[] arrayInformationFile = stringOnFile.split(",");
             if (Integer.parseInt(arrayInformationFile[1].replaceAll("\\s", "")) < 18) {
                 noEighteenEars.add(stringOnFile);
@@ -136,9 +121,35 @@ public class Invoice {
     }
 }
 
-class InvoiceComparator implements Comparator<Invoice> {
-    public int compare(Invoice a, Invoice b) {
-        return Integer.compare(Invoice.getAgePerson(), Invoice.getAgePerson());
+class InvoiceComparator{
+
+    public static void main(String[] args) throws FileNotFoundException {
+        File file = new File("OrderFile.csv");
+        List<SomeToAgeSort> sortAge = new ArrayList<>();
+        Scanner scanner = new Scanner(file);
+        while (scanner.hasNextLine()) {
+            String stringOnFile = scanner.nextLine();
+            Object[] arrayInformationFile = stringOnFile.split(",");
+            int agePerson = Integer.parseInt(arrayInformationFile[1].toString().replaceAll("\\s", ""));
+        sortAge.add(new SomeToAgeSort(agePerson,stringOnFile));
+        }
+       sortAge.sort(Comparator.comparing(SomeToAgeSort::getAgePerson));
+
+    }
+}
+class SomeToAgeSort{
+   private String stringOnFile;
+   private int agePerson;
+
+    public SomeToAgeSort(int agePerson, String stringOnFile) {
+    }
+
+    public int getAgePerson() {
+        return agePerson;
+    }
+
+    public String getStringOnFile() {
+        return stringOnFile;
     }
 }
 
