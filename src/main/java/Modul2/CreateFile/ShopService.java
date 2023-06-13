@@ -31,10 +31,10 @@ public class ShopService extends Throwable {
         newFormatFile(checkList, listInformationSale);
     }
 
-    public static void newFormatFile(List<String> list, List<String> listInformationSale) {
+    public static void newFormatFile(List<String> checkList, List<String> listInformationSale) {
         PersonService personService = new PersonService();
-        String checkList = "[" + LocalDateTime.now() + "] " + personService.generateNewCustomer() + " " + list;
-        listInformationSale.add(checkList);
+        String newFormatCheckList = "[" + LocalDateTime.now() + "] " + personService.generateNewCustomer() + " " + checkList;
+        listInformationSale.add(newFormatCheckList);
     }
 
     public void writeSaleInformation(File file) throws IOException {
@@ -44,6 +44,8 @@ public class ShopService extends Throwable {
                 readListProduct(listInformationSale);
                 printWriter.println(listInformationSale.get(j));
             }
+            System.out.println("Хранилище сформированных заказов -> " + "\n" + historyOrder);
+            System.out.println("<-");
         }
     }
 
