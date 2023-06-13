@@ -8,11 +8,11 @@ import java.util.*;
 class InvoiceComparator {
 
     public static void main(String[] args) throws FileNotFoundException {
-        sortAll();
+        File file = new File("OrderFile.csv");
+        sortAll(file);
     }
 
-    public static void sortAll() throws FileNotFoundException {
-        File file = new File("OrderFile.csv");
+    public static void sortAll(File file) throws FileNotFoundException {
         List<SomeToAgeSort> sortAge = new ArrayList<>();
         Scanner scanner = new Scanner(file);
         while (scanner.hasNextLine()) {
